@@ -16,6 +16,22 @@ let upload = multer({
   limits: { fileSize: 1000000 * 50 },
 }).single("myFile");
 
-router.post("/files", (res, req) => {});
+router.post("/files", (res, req) => {
+  if (!req.file) {
+    res.send({
+      error: "All fields are required",
+    });
+    return;
+  }
+  upload(req, res, (err) => {
+    if (err) {
+      res.status(500).send({
+        error: err.message,
+      });
+      return;
+    }
+    // Store in database
+  });
+});
 
 export default router;
