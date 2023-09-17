@@ -7,7 +7,7 @@ const connectDB = async () => {
     });
     const connection = mongoose.connection;
     connection.once("open", () => {
-      console.log("Database Connected");
+      console.log("Successfully Connected to Database");
     });
     connection.on("error", (error) => {
       console.error("Database Connection Error:", error);
