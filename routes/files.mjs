@@ -47,4 +47,23 @@ router.post("/files", (req, res) => {
   });
 });
 
+router.post("/send", async (req, res) => {
+  const { uuid, emailTo, emailFrom } = req.body;
+  if (!uuid || !emailTo || !emailFrom) {
+    res.status(422).send({
+      error: "Required Parameter Missing",
+    });
+    return;
+  }
+  try {
+    const file = await File.findOne({ uuid: uuid });
+    if (file.sender) {
+      return res.send({ error: "Email already sent!" });
+    }
+    file.sender = emailFrom;
+    file.reciever = emailTo;
+    const response = await file.save();
+  } catch (error) {}
+});
+
 export default router;
