@@ -78,6 +78,9 @@ router.post("/send", async (req, res) => {
         expires: "24 hours",
       }),
     });
+    res.send({
+      success: true,
+    });
   } catch (error) {}
 });
 
