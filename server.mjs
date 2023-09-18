@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+app.use(express.json());
 
 app.set("views", path.join(__dirname, "/view"));
 app.set("view engine", "ejs");
