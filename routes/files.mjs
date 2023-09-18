@@ -51,6 +51,7 @@ router.post("/files", (req, res) => {
 
 router.post("/send", async (req, res) => {
   const { uuid, emailTo, emailFrom } = req.body;
+  console.log(req.body);
   if (!uuid || !emailTo || !emailFrom) {
     res.status(422).send({
       error: "Required Parameter Missing",
