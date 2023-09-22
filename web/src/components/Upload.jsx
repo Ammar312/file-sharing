@@ -1,13 +1,17 @@
 import React from "react";
-
+import img from "../assets/file.svg";
 const Upload = () => {
   return (
     <div>
-      <div className=" p-8 border-blue-400 border-2 border-dashed">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum
-        nemo dolores ipsa facere labore, itaque adipisci molestiae consequuntur
-        rerum temporibus quaerat voluptatem delectus amet tenetur omnis vero.
-        Facere, quisquam placeat.
+      <div className="p-8 bg-white max-w-2xl m-4 rounded-xl">
+        <div className="  border-blue-400 border-2 border-dashed flex flex-col items-center justify-center gap-4 min-h-[250px]">
+          <div className=" w-20 h-20">
+            <img src={img} alt="upload image" />
+          </div>
+          <div>
+            <p>Drop your Files here or, Browse</p>
+          </div>
+        </div>
       </div>
     </div>
   );
