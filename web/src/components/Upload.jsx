@@ -1,13 +1,30 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Progress } from "antd";
 import img from "../assets/file.svg";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 const Upload = () => {
   const [files, setFiles] = useState("");
+  const [isDrop, setIsDrop] = useState(false);
+  const fileRef = useRef(null);
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
     // Do something with the files
     setFiles(acceptedFiles[0].path);
+
+    const callApi = async () => {
+      try {
+        const response = await axios.post("http://localhost:3000/api/files", {
+          myFile: acceptedFiles[0],
+        });
+
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    callApi();
+    console.log(fileRef);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, open, isDragAccept } =
@@ -26,11 +43,11 @@ const Upload = () => {
             <img
               src={img}
               alt="upload image"
-              className={isDragActive && ` translate-x-8 transition-all`}
+              className={isDragActive ? ` translate-x-8 transition-all` : ""}
             />
           </div>
           <div>
-            <input {...getInputProps()} name="myFile" />
+            <input {...getInputProps()} name="myFile" ref={fileRef} />
             {
               isDragActive ? (
                 <p>Drop the files here ...</p>
