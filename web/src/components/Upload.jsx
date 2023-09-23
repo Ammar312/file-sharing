@@ -9,7 +9,11 @@ const Upload = () => {
     setFiles(acceptedFiles[0].path);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive, open, isDragAccept } =
+    useDropzone({
+      onDrop,
+      noClick: true,
+    });
   return (
     <div>
       <div className="p-8 bg-white max-w-2xl m-4 rounded-xl">
@@ -18,15 +22,24 @@ const Upload = () => {
           {...getRootProps()}
         >
           <div className=" w-20 h-20">
-            <img src={img} alt="upload image" />
+            <img
+              src={img}
+              alt="upload image"
+              className={isDragActive && ` translate-x-8 transition-all`}
+            />
           </div>
           <div>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} name="myFile" />
             {
               isDragActive ? (
                 <p>Drop the files here ...</p>
               ) : (
-                <p>Drop your Files here or, Browse</p>
+                <p>
+                  Drop your Files here or,{" "}
+                  <span onClick={open} className=" text-blue-300">
+                    Browse
+                  </span>
+                </p>
               )
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
