@@ -1,9 +1,12 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import img from "../assets/file.svg";
 import { useDropzone } from "react-dropzone";
 const Upload = () => {
+  const [files, setFiles] = useState("");
   const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
     // Do something with the files
+    setFiles(acceptedFiles[0].path);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -27,6 +30,7 @@ const Upload = () => {
               )
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
+            <div>{files}</div>
           </div>
         </div>
       </div>
