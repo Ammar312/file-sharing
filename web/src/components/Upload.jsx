@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { Progress } from "antd";
 import img from "../assets/file.svg";
 import { useDropzone } from "react-dropzone";
 const Upload = () => {
@@ -36,7 +37,10 @@ const Upload = () => {
               ) : (
                 <p>
                   Drop your Files here or,{" "}
-                  <span onClick={open} className=" text-blue-300">
+                  <span
+                    onClick={open}
+                    className=" text-blue-300 cursor-pointer"
+                  >
                     Browse
                   </span>
                 </p>
@@ -44,6 +48,7 @@ const Upload = () => {
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
             <div>{files}</div>
+            <Progress percent={30} />
           </div>
         </div>
       </div>
