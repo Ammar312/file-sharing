@@ -7,7 +7,8 @@ const Upload = () => {
   const [files, setFiles] = useState("");
   const [isDrop, setIsDrop] = useState(false);
 
-  const callApi = async () => {
+  const callApi = async (e) => {
+    console.log(e);
     const formData = new FormData();
     formData.append("myFile", acceptedFiles[0]);
     try {
@@ -72,7 +73,7 @@ const Upload = () => {
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
             <div>{files}</div>
-            <Progress percent={30} />
+            <Progress percent={90} />
           </div>
         </div>
       </div>
