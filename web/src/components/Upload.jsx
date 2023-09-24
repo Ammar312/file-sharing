@@ -7,8 +7,9 @@ const Upload = () => {
   const [files, setFiles] = useState("");
   const [isDrop, setIsDrop] = useState(false);
 
-  const callApi = async (e) => {
-    console.log(e);
+  const callApi = async (acceptedFiles) => {
+    let sendTime = new Date().getTime();
+
     const formData = new FormData();
     formData.append("myFile", acceptedFiles[0]);
     try {
@@ -23,6 +24,9 @@ const Upload = () => {
       );
 
       console.log(response.data);
+      let receiveDate = new Date().getTime();
+      const responseTimeMs = receiveDate - sendTime;
+      console.log(`Took ${responseTimeMs} ms`);
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +36,7 @@ const Upload = () => {
     console.log(acceptedFiles);
     // Do something with the files
     setFiles(acceptedFiles[0].path);
-    callApi();
+    callApi(acceptedFiles);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, open, isDragAccept } =
