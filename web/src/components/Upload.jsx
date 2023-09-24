@@ -6,25 +6,32 @@ import axios from "axios";
 const Upload = () => {
   const [files, setFiles] = useState("");
   const [isDrop, setIsDrop] = useState(false);
-  const fileRef = useRef(null);
+
+  const callApi = async () => {
+    const formData = new FormData();
+    formData.append("myFile", acceptedFiles[0]);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/files",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set content type to multipart/form-data
+          },
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
     // Do something with the files
     setFiles(acceptedFiles[0].path);
-
-    const callApi = async () => {
-      try {
-        const response = await axios.post("http://localhost:3000/api/files", {
-          myFile: acceptedFiles[0],
-        });
-
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     callApi();
-    console.log(fileRef);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, open, isDragAccept } =
@@ -47,7 +54,7 @@ const Upload = () => {
             />
           </div>
           <div>
-            <input {...getInputProps()} name="myFile" ref={fileRef} />
+            <input {...getInputProps()} />
             {
               isDragActive ? (
                 <p>Drop the files here ...</p>
