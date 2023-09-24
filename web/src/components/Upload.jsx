@@ -6,6 +6,14 @@ import axios from "axios";
 const Upload = () => {
   const [files, setFiles] = useState("");
   const [isDrop, setIsDrop] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const onUploadProgress = (progressEvent) => {
+    const percentCompleted = Math.round(
+      (progressEvent.loaded * 100) / progressEvent.total
+    );
+    setProgress(percentCompleted);
+  };
 
   const callApi = async (acceptedFiles) => {
     let sendTime = new Date().getTime();
@@ -20,6 +28,7 @@ const Upload = () => {
           headers: {
             "Content-Type": "multipart/form-data", // Set content type to multipart/form-data
           },
+          onUploadProgress: onUploadProgress,
         }
       );
 
@@ -34,6 +43,7 @@ const Upload = () => {
 
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
+    setProgress(0);
     // Do something with the files
     setFiles(acceptedFiles[0].path);
     callApi(acceptedFiles);
@@ -77,7 +87,11 @@ const Upload = () => {
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
             <div>{files}</div>
-            <Progress percent={90} />
+            {progress !== 0 && progress !== 100 ? (
+              <Progress percent={progress} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
