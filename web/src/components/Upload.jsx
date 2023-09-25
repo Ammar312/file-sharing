@@ -16,7 +16,7 @@ const Upload = () => {
   };
   const simulateSlowProgress = () => {
     const maxProgress = 100;
-    const delayMs = 100; // Delay between each progress update in milliseconds
+    const delayMs = 50; // Delay between each progress update in milliseconds
 
     for (let i = 0; i <= maxProgress; i++) {
       setTimeout(() => {
@@ -97,10 +97,17 @@ const Upload = () => {
               )
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
-            <div>{files}</div>
-
-            <Progress percent={progress} />
+            {/* <div>{files}</div> */}
           </div>
+        </div>
+        <div className=" mt-3">
+          <Progress
+            percent={progress}
+            size={[400, 35]}
+            strokeLinecap="butt"
+            trailColor="#69b1ff17"
+            strokeColor="blue"
+          />
         </div>
       </div>
     </div>
