@@ -4,9 +4,11 @@ import img from "../assets/file.svg";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 const Upload = () => {
-  const [files, setFiles] = useState("");
+  const [file, setFile] = useState("");
   const [isDrop, setIsDrop] = useState(false);
+  const [complete, setComplete] = useState(false);
   const [progress, setProgress] = useState(0);
+  const copyLink = useRef(null);
 
   const onUploadProgress = (progressEvent) => {
     const percentCompleted = Math.round(
@@ -14,15 +16,15 @@ const Upload = () => {
     );
     setProgress(percentCompleted);
   };
-  const simulateSlowProgress = () => {
+  const simulateSlowProgress = async () => {
     const maxProgress = 100;
     const delayMs = 10; // Delay between each progress update in milliseconds
 
     for (let i = 0; i <= maxProgress; i++) {
-      setTimeout(() => {
-        setProgress(i);
-      }, i * delayMs);
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+      setProgress(i);
     }
+    setComplete(true);
   };
 
   const callApi = async (acceptedFiles) => {
@@ -43,9 +45,11 @@ const Upload = () => {
       );
 
       console.log(response.data);
+      setFile(response.data.file);
       let receiveDate = new Date().getTime();
       const responseTimeMs = receiveDate - sendTime;
       console.log(`Took ${responseTimeMs} ms`);
+      simulateSlowProgress();
     } catch (error) {
       console.log(error);
     }
@@ -55,9 +59,10 @@ const Upload = () => {
     console.log(acceptedFiles);
     setProgress(0);
     setIsDrop(true);
+    setComplete(false);
     // Do something with the files
-    simulateSlowProgress();
-    setFiles(acceptedFiles[0].path);
+
+    // setFiles(acceptedFiles[0].path);
     callApi(acceptedFiles);
   }, []);
 
@@ -66,11 +71,12 @@ const Upload = () => {
       onDrop,
       noClick: true,
     });
+
   return (
     <div>
       <div className="p-8 bg-white max-w-2xl m-4 rounded-xl">
         <div
-          className="  border-blue-400 border-2 border-dashed flex flex-col items-center justify-center gap-4 min-h-[250px]"
+          className="  border-blue-400 border-2 border-dashed flex flex-col items-center justify-center gap-4 min-h-[250px] mb-3"
           {...getRootProps()}
         >
           <div className=" w-20 h-20">
@@ -102,7 +108,7 @@ const Upload = () => {
           </div>
         </div>
         {isDrop && progress !== 100 ? (
-          <div className=" mt-3">
+          <div className="">
             <Progress
               percent={progress}
               size={[400, 35]}
@@ -113,6 +119,26 @@ const Upload = () => {
           </div>
         ) : (
           ""
+        )}
+        {complete && (
+          <div className=" flex flex-col gap-2 items-center w-full ">
+            <div className=" font-medium">Link Expires in 24 hours</div>
+            <div
+              className=" border-dashed border-blue-400 border-2 p-2"
+              ref={copyLink}
+            >
+              <span> {file}</span>{" "}
+              <span
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    copyLink.current.firstChild.innerText
+                  )
+                }
+              >
+                Copy
+              </span>
+            </div>
+          </div>
         )}
       </div>
     </div>
