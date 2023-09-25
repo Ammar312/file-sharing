@@ -14,6 +14,16 @@ const Upload = () => {
     );
     setProgress(percentCompleted);
   };
+  const simulateSlowProgress = () => {
+    const maxProgress = 100;
+    const delayMs = 100; // Delay between each progress update in milliseconds
+
+    for (let i = 0; i <= maxProgress; i++) {
+      setTimeout(() => {
+        setProgress(i);
+      }, i * delayMs);
+    }
+  };
 
   const callApi = async (acceptedFiles) => {
     let sendTime = new Date().getTime();
@@ -45,6 +55,7 @@ const Upload = () => {
     console.log(acceptedFiles);
     setProgress(0);
     // Do something with the files
+    simulateSlowProgress();
     setFiles(acceptedFiles[0].path);
     callApi(acceptedFiles);
   }, []);
@@ -87,11 +98,8 @@ const Upload = () => {
               // <p>Drag 'n' drop some files here, or click to select files</p>
             }
             <div>{files}</div>
-            {progress !== 0 && progress !== 100 ? (
-              <Progress percent={progress} />
-            ) : (
-              ""
-            )}
+
+            <Progress percent={progress} />
           </div>
         </div>
       </div>
