@@ -101,7 +101,7 @@ const Upload = () => {
             {/* <div>{files}</div> */}
           </div>
         </div>
-        {isDrop === true || progress !== 100 ? (
+        {isDrop && progress !== 100 ? (
           <div className=" mt-3">
             <Progress
               percent={progress}
