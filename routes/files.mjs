@@ -44,7 +44,7 @@ router.post("/files", (req, res) => {
     });
     const response = await file.save();
     return res.json({
-      file: `${process.env.APP_BASE_URL}/files/${response.uuid}`,
+      file: `${process.env.APP_BASE_URL}/api/showfile/${response.uuid}`,
     });
   });
 });

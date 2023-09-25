@@ -16,7 +16,7 @@ const Upload = () => {
   };
   const simulateSlowProgress = () => {
     const maxProgress = 100;
-    const delayMs = 50; // Delay between each progress update in milliseconds
+    const delayMs = 10; // Delay between each progress update in milliseconds
 
     for (let i = 0; i <= maxProgress; i++) {
       setTimeout(() => {
@@ -54,6 +54,7 @@ const Upload = () => {
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
     setProgress(0);
+    setIsDrop(true);
     // Do something with the files
     simulateSlowProgress();
     setFiles(acceptedFiles[0].path);
@@ -100,15 +101,19 @@ const Upload = () => {
             {/* <div>{files}</div> */}
           </div>
         </div>
-        <div className=" mt-3">
-          <Progress
-            percent={progress}
-            size={[400, 35]}
-            strokeLinecap="butt"
-            trailColor="#69b1ff17"
-            strokeColor="blue"
-          />
-        </div>
+        {isDrop === true || progress !== 100 ? (
+          <div className=" mt-3">
+            <Progress
+              percent={progress}
+              size={[400, 35]}
+              strokeLinecap="butt"
+              trailColor="#69b1ff17"
+              strokeColor="blue"
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
