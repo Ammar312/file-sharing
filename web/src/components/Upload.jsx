@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
-import { Progress } from "antd";
+import { Progress, message } from "antd";
+import { CopyTwoTone } from "@ant-design/icons";
 import img from "../assets/file.svg";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
@@ -127,15 +128,17 @@ const Upload = () => {
               className=" border-dashed border-blue-400 border-2 p-2"
               ref={copyLink}
             >
-              <span> {file}</span>{" "}
+              <span> {file}</span>
               <span
-                onClick={() =>
+                onClick={() => {
                   navigator.clipboard.writeText(
                     copyLink.current.firstChild.innerText
-                  )
-                }
+                  );
+                  message.success(`Copied!`);
+                }}
+                className=" cursor-pointer text-[1.5rem] "
               >
-                Copy
+                <CopyTwoTone />
               </span>
             </div>
           </div>
