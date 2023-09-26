@@ -136,7 +136,7 @@ const Upload = () => {
                   );
                   message.success(`Copied!`);
                 }}
-                className=" cursor-pointer text-[1.5rem] "
+                className=" cursor-pointer text-[1.5rem] absolute right-[400px]"
               >
                 <CopyTwoTone />
               </span>

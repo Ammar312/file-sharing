@@ -1,8 +1,10 @@
+import Logo from "./components/Logo";
 import Upload from "./components/Upload";
 
 export default function App() {
   return (
-    <div className=" bg-black min-h-screen p-6 ">
+    <div className=" bg-blue-200 min-h-screen p-6 pt-1 ">
+      <Logo />
       <Upload />
     </div>
   );
