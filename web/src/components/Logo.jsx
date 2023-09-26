@@ -7,7 +7,7 @@ const Logo = () => {
       <div className=" w-[80px]">
         <img src={logo} alt="logo" />
       </div>
-      <p className="text-5xl font-black text-blue-600">SHARE'N</p>
+      <p className="text-5xl font-bold text-blue-800 font-serif ">SHARE'N</p>
     </div>
   );
 };

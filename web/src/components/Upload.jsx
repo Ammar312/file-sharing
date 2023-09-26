@@ -74,7 +74,7 @@ const Upload = () => {
     });
 
   return (
-    <div className=" flex border-2 border-emerald-300 justify-center items-center">
+    <div className=" flex justify-center items-center">
       <div className="p-8 bg-white w-[650px] m-4 rounded-xl">
         <div
           className="  border-blue-400 border-2 border-dashed flex flex-col items-center justify-center gap-4 min-h-[250px] mb-3"
@@ -128,7 +128,7 @@ const Upload = () => {
               className=" border-dashed border-blue-400 border-2 p-2"
               ref={copyLink}
             >
-              <span> {file}</span>
+              <span className=" font-semibold"> {file}</span>
               <span
                 onClick={() => {
                   navigator.clipboard.writeText(
@@ -136,7 +136,7 @@ const Upload = () => {
                   );
                   message.success(`Copied!`);
                 }}
-                className=" cursor-pointer text-[1.5rem] absolute right-[400px]"
+                className=" cursor-pointer text-[1.6rem] absolute right-[400px] bottom-[133px]"
               >
                 <CopyTwoTone />
               </span>
