@@ -11,6 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(cors());
+app.use(express.static("public"));
 
 app.set("views", path.join(__dirname, "/view"));
 app.set("view engine", "ejs");
